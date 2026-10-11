@@ -1,0 +1,69 @@
+{
+  "kind": "participant_editable_fork",
+  "name": "Alwadhi",
+  "agent_id": "alwadhi/vf",
+  "baseline_checkpoint_sha256": "579fa26010140514d2e9b7f0e2871bee569c594b7da8648e31ee1489007cd5b7",
+  "checkpoint_source": "Participant checkpoint",
+  "training_provenance": {
+    "dataset_version": "self-recorded with teacher.py (v13-teacher-2), 10 matches, 372664 rows",
+    "teacher_noise_sigmas": [
+      0.0,
+      0.1,
+      0.2,
+      0.3
+    ],
+    "split_method": "whole matches, shuffled with seed before fitting; test used once after selection",
+    "split_files": {
+      "train": [
+        "match_20261010_192328_27460.csv",
+        "match_20261010_200030_34696.csv",
+        "match_20261011_001248_24940.csv",
+        "match_20261011_040325_5748.csv",
+        "match_20261011_041704_5168.csv",
+        "match_20261011_042553_19012.csv",
+        "match_20261011_045148_22128.csv"
+      ],
+      "val": [
+        "match_20261010_200740_10020.csv",
+        "match_20261011_042458_22516.csv"
+      ],
+      "test": [
+        "match_20261010_200101_29872.csv"
+      ]
+    },
+    "seed": 42,
+    "architecture": "13D / encoder64 / GRU64 / mode4+steer",
+    "objective": "sqrt-inverse-frequency weighted CE (mode) + 1.0 * MSE(steer) on Chase rows only; labels are clean teacher actions",
+    "checkpoint_selection": "best validation macro-F1 over modes (epoch 35)",
+    "training_command": "python train.py --data C:\\wars\\v1rec\\datasets --out C:\\wars\\v1rec\\run_vf1 --epochs 35",
+    "init": "starter",
+    "optimizer": "Adam",
+    "lr": 0.001,
+    "epochs": 35,
+    "chunk": 256,
+    "torch": "2.11.0+cpu",
+    "validation_results": {
+      "macro_f1": 0.83265221118927,
+      "recall_NCJD": [
+        0.9320388436317444,
+        0.9905698895454407,
+        0.5151515007019043,
+        0.8557692170143127
+      ],
+      "steer_mae": 0.1016413722677571
+    },
+    "test_results": {
+      "macro_f1": 1.0,
+      "recall_NCJD": [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      "steer_mae": 0.035574897662880495
+    },
+    "limitations": "Imitation of a scripted teacher; offline metrics only; closed-loop play not yet validated."
+  },
+  "live_acceptance": "NOT TESTED after edits; run preflight and GUI match",
+  "checkpoint_sha256": "c17dafda28b94cdf18a0a7025bbbb816c219a7096c267b8dbcbc526e6b2ba311"
+}
